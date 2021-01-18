@@ -19,7 +19,6 @@
  buffers-menu-max-size 30
  case-fold-search t
  column-number-mode t
- delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
  indent-tabs-mode nil
@@ -34,6 +33,8 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
+(add-hook 'after-init-hook 'delete-selection-mode)
+
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
@@ -45,6 +46,9 @@
 
 
 ;; Huge files
+
+(when (fboundp 'so-long-enable)
+  (add-hook 'after-init-hook 'so-long-enable))
 
 (require-package 'vlf)
 
@@ -171,11 +175,6 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-;; From active region to multiple cursors:
-(global-set-key (kbd "C-c m r") 'set-rectangular-region-anchor)
-(global-set-key (kbd "C-c m c") 'mc/edit-lines)
-(global-set-key (kbd "C-c m e") 'mc/edit-ends-of-lines)
-(global-set-key (kbd "C-c m a") 'mc/edit-beginnings-of-lines)
 
 ;; Train myself to use M-f and M-b instead
 (global-unset-key [M-left])
